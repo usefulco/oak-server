@@ -1,0 +1,8 @@
+# Mac OS files
+.DS_Store
+
+# Test binary
+*.test
+
+# Output of go coverage
+*.out
