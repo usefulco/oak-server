@@ -5,6 +5,8 @@ syntax = "proto3";
 
 option go_package = "github.com/usefulco/oak-server/api/ingest";
 
+import "provider/provider.proto";
+
 service IngestService {
     rpc CreateIngest (CreateIngestRequest) returns (Ingest);
 }
@@ -12,7 +14,7 @@ service IngestService {
 // Ingest object
 message Ingest {
     string id = 1;
-    string provider = 2;
+    Provider provider = 2;
     string type = 3;
     string name = 4;
     string description =5;
@@ -20,10 +22,12 @@ message Ingest {
 
 // CreateIngestRequest is a request object used to create an Ingest
 message CreateIngestRequest {
-    string provider = 1;
+    Provider provider = 1;
     string type = 2;
     string name = 3;
     string description = 4;
+    string source_name = 5;
+    string source_ip_addr = 6;
 }
 
 // GetIngestRequest is a request object used to retrieve an Ingests details

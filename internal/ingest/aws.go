@@ -5,20 +5,23 @@ import (
 	"log"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/mediaconnect"
-	session "github.com/usefulco/oak-server/pkg/aws"
 )
-
-// TODO
-// - move mediaConnect session outside of method handler
-
-type AwsProvider struct{}
 
 var providerName = "aws"
 
-func (p *AwsProvider) Create(i *ProviderCreateInput) (*ProviderCreateOutput, error) {
-	client := mediaconnect.New(session.SharedSession)
+type awsProvider struct {
+	client *mediaconnect.MediaConnect
+}
 
+func NewAwsProvider(session *session.Session) *awsProvider {
+	return &awsProvider{
+		client: mediaconnect.New(session),
+	}
+}
+
+func (p *awsProvider) Create(i *ProviderCreateInput) (*ProviderCreateOutput, error) {
 	options := mediaconnect.CreateFlowInput{
 		Name: &i.Name,
 		Source: &mediaconnect.SetSourceRequest{
@@ -28,7 +31,7 @@ func (p *AwsProvider) Create(i *ProviderCreateInput) (*ProviderCreateOutput, err
 		},
 	}
 
-	createFlowOutput, err := client.CreateFlow(&options)
+	createFlowOutput, err := p.client.CreateFlow(&options)
 	if err != nil {
 		log.Fatalf("failed to create mediaconnect flow: %v", err)
 	}

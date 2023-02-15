@@ -4,9 +4,10 @@ import (
 	"log"
 	"net"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
 	pbIngest "github.com/usefulco/oak-server/api/ingest"
 	"github.com/usefulco/oak-server/internal/ingest"
-	"github.com/usefulco/oak-server/pkg/aws"
 	"google.golang.org/grpc"
 )
 
@@ -14,7 +15,9 @@ import (
 // - move aws session creation to better place
 
 func main() {
-	aws.CreateSession()
+	awsSession := session.Must(session.NewSession(&aws.Config{
+		Region: aws.String("us-east-2"),
+	}))
 
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
@@ -23,7 +26,7 @@ func main() {
 
 	server := grpc.NewServer()
 
-	grpcIngestServer := ingest.NewServer()
+	grpcIngestServer := ingest.NewServer(awsSession)
 	pbIngest.RegisterIngestServiceServer(server, grpcIngestServer)
 
 	log.Printf("server listening")

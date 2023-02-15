@@ -6,3 +6,5 @@
 
 # Output of go coverage
 *.out
+
+.vscode

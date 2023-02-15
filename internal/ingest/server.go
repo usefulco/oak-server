@@ -4,26 +4,27 @@ import (
 	"context"
 	"log"
 
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/davecgh/go-spew/spew"
 	pbIngest "github.com/usefulco/oak-server/api/ingest"
+	pbprovider "github.com/usefulco/oak-server/api/provider"
 )
 
 // TODO:
-// - update awsProvider to be providers[]
+// - Abstract new service scoffolding to module
 // - update server methods to require preferred provider, reference from providers slice for each call
-// - move test data into gRPC client call so it's not hard-coded here
 // - add proper response type
 
 type IngestServer struct {
 	pbIngest.UnimplementedIngestServiceServer
-	awsProvider Provider
+	providers map[pbprovider.Provider]Provider
 }
 
 func (s *IngestServer) CreateIngest(ctx context.Context, r *pbIngest.CreateIngestRequest) (*pbIngest.Ingest, error) {
-	result, err := s.awsProvider.Create(&ProviderCreateInput{
-		Name:              "test_stream_ingestion",
-		SourceName:        "mikes_computer",
-		PermittedSourceIP: "192.168.1.1",
+	result, err := s.providers[r.Provider].Create(&ProviderCreateInput{
+		Name:              r.Name,
+		SourceName:        r.SourceName,
+		PermittedSourceIP: r.SourceIpAddr,
 	})
 	if err != nil {
 		log.Fatalf("failed to create aws setup: %v", err)
@@ -37,10 +38,10 @@ func (s *IngestServer) CreateIngest(ctx context.Context, r *pbIngest.CreateInges
 	}, nil
 }
 
-func NewServer() pbIngest.IngestServiceServer {
-	s := &IngestServer{
-		awsProvider: &AwsProvider{},
+func NewServer(awsSession *session.Session) pbIngest.IngestServiceServer {
+	return &IngestServer{
+		providers: map[pbprovider.Provider]Provider{
+			pbprovider.Provider_AWS: NewAwsProvider(awsSession),
+		},
 	}
-
-	return s
 }
