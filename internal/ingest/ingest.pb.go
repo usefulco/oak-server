@@ -2,12 +2,12 @@
 // versions:
 // 	protoc-gen-go v1.28.1
 // 	protoc        v3.12.4
-// source: ingest/ingest.proto
+// source: ingest.proto
 
 package ingest
 
 import (
-	pbprovider "github.com/usefulco/oak-server/api/provider"
+	provider "github.com/usefulco/oak-server/internal/provider"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -27,17 +27,17 @@ type Ingest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          string              `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Provider    pbprovider.Provider `protobuf:"varint,2,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
-	Type        string              `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
-	Name        string              `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	Description string              `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	Id          string            `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Provider    provider.Provider `protobuf:"varint,2,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
+	Type        string            `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	Name        string            `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	Description string            `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
 }
 
 func (x *Ingest) Reset() {
 	*x = Ingest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_ingest_ingest_proto_msgTypes[0]
+		mi := &file_ingest_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -50,7 +50,7 @@ func (x *Ingest) String() string {
 func (*Ingest) ProtoMessage() {}
 
 func (x *Ingest) ProtoReflect() protoreflect.Message {
-	mi := &file_ingest_ingest_proto_msgTypes[0]
+	mi := &file_ingest_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,7 +63,7 @@ func (x *Ingest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Ingest.ProtoReflect.Descriptor instead.
 func (*Ingest) Descriptor() ([]byte, []int) {
-	return file_ingest_ingest_proto_rawDescGZIP(), []int{0}
+	return file_ingest_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Ingest) GetId() string {
@@ -73,11 +73,11 @@ func (x *Ingest) GetId() string {
 	return ""
 }
 
-func (x *Ingest) GetProvider() pbprovider.Provider {
+func (x *Ingest) GetProvider() provider.Provider {
 	if x != nil {
 		return x.Provider
 	}
-	return pbprovider.Provider(0)
+	return provider.Provider(0)
 }
 
 func (x *Ingest) GetType() string {
@@ -107,18 +107,18 @@ type CreateIngestRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Provider     pbprovider.Provider `protobuf:"varint,1,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
-	Type         string              `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
-	Name         string              `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Description  string              `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	SourceName   string              `protobuf:"bytes,5,opt,name=source_name,json=sourceName,proto3" json:"source_name,omitempty"`
-	SourceIpAddr string              `protobuf:"bytes,6,opt,name=source_ip_addr,json=sourceIpAddr,proto3" json:"source_ip_addr,omitempty"`
+	Provider     provider.Provider `protobuf:"varint,1,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
+	Type         string            `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	Name         string            `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Description  string            `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	SourceName   string            `protobuf:"bytes,5,opt,name=source_name,json=sourceName,proto3" json:"source_name,omitempty"`
+	SourceIpAddr string            `protobuf:"bytes,6,opt,name=source_ip_addr,json=sourceIpAddr,proto3" json:"source_ip_addr,omitempty"`
 }
 
 func (x *CreateIngestRequest) Reset() {
 	*x = CreateIngestRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_ingest_ingest_proto_msgTypes[1]
+		mi := &file_ingest_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -131,7 +131,7 @@ func (x *CreateIngestRequest) String() string {
 func (*CreateIngestRequest) ProtoMessage() {}
 
 func (x *CreateIngestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_ingest_ingest_proto_msgTypes[1]
+	mi := &file_ingest_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -144,14 +144,14 @@ func (x *CreateIngestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateIngestRequest.ProtoReflect.Descriptor instead.
 func (*CreateIngestRequest) Descriptor() ([]byte, []int) {
-	return file_ingest_ingest_proto_rawDescGZIP(), []int{1}
+	return file_ingest_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CreateIngestRequest) GetProvider() pbprovider.Provider {
+func (x *CreateIngestRequest) GetProvider() provider.Provider {
 	if x != nil {
 		return x.Provider
 	}
-	return pbprovider.Provider(0)
+	return provider.Provider(0)
 }
 
 func (x *CreateIngestRequest) GetType() string {
@@ -201,7 +201,7 @@ type GetIngestRequest struct {
 func (x *GetIngestRequest) Reset() {
 	*x = GetIngestRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_ingest_ingest_proto_msgTypes[2]
+		mi := &file_ingest_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -214,7 +214,7 @@ func (x *GetIngestRequest) String() string {
 func (*GetIngestRequest) ProtoMessage() {}
 
 func (x *GetIngestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_ingest_ingest_proto_msgTypes[2]
+	mi := &file_ingest_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -227,7 +227,7 @@ func (x *GetIngestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetIngestRequest.ProtoReflect.Descriptor instead.
 func (*GetIngestRequest) Descriptor() ([]byte, []int) {
-	return file_ingest_ingest_proto_rawDescGZIP(), []int{2}
+	return file_ingest_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetIngestRequest) GetId() string {
@@ -237,11 +237,10 @@ func (x *GetIngestRequest) GetId() string {
 	return ""
 }
 
-var File_ingest_ingest_proto protoreflect.FileDescriptor
+var File_ingest_proto protoreflect.FileDescriptor
 
-var file_ingest_ingest_proto_rawDesc = []byte{
-	0x0a, 0x13, 0x69, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x2f, 0x69, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x17, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2f,
+var file_ingest_proto_rawDesc = []byte{
+	0x0a, 0x0c, 0x69, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0e,
 	0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x89,
 	0x01, 0x0a, 0x06, 0x49, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x25, 0x0a, 0x08, 0x70, 0x72, 0x6f,
@@ -270,33 +269,33 @@ var file_ingest_ingest_proto_rawDesc = []byte{
 	0x0a, 0x0d, 0x49, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
 	0x2d, 0x0a, 0x0c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x49, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x12,
 	0x14, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x49, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x07, 0x2e, 0x49, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x42, 0x2b,
-	0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x75, 0x73, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x07, 0x2e, 0x49, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x42, 0x30,
+	0x5a, 0x2e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x75, 0x73, 0x65,
 	0x66, 0x75, 0x6c, 0x63, 0x6f, 0x2f, 0x6f, 0x61, 0x6b, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72,
-	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x69, 0x6e, 0x67, 0x65, 0x73, 0x74, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x69, 0x6e, 0x67, 0x65, 0x73, 0x74,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_ingest_ingest_proto_rawDescOnce sync.Once
-	file_ingest_ingest_proto_rawDescData = file_ingest_ingest_proto_rawDesc
+	file_ingest_proto_rawDescOnce sync.Once
+	file_ingest_proto_rawDescData = file_ingest_proto_rawDesc
 )
 
-func file_ingest_ingest_proto_rawDescGZIP() []byte {
-	file_ingest_ingest_proto_rawDescOnce.Do(func() {
-		file_ingest_ingest_proto_rawDescData = protoimpl.X.CompressGZIP(file_ingest_ingest_proto_rawDescData)
+func file_ingest_proto_rawDescGZIP() []byte {
+	file_ingest_proto_rawDescOnce.Do(func() {
+		file_ingest_proto_rawDescData = protoimpl.X.CompressGZIP(file_ingest_proto_rawDescData)
 	})
-	return file_ingest_ingest_proto_rawDescData
+	return file_ingest_proto_rawDescData
 }
 
-var file_ingest_ingest_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_ingest_ingest_proto_goTypes = []interface{}{
+var file_ingest_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_ingest_proto_goTypes = []interface{}{
 	(*Ingest)(nil),              // 0: Ingest
 	(*CreateIngestRequest)(nil), // 1: CreateIngestRequest
 	(*GetIngestRequest)(nil),    // 2: GetIngestRequest
-	(pbprovider.Provider)(0),    // 3: Provider
+	(provider.Provider)(0),      // 3: Provider
 }
-var file_ingest_ingest_proto_depIdxs = []int32{
+var file_ingest_proto_depIdxs = []int32{
 	3, // 0: Ingest.provider:type_name -> Provider
 	3, // 1: CreateIngestRequest.provider:type_name -> Provider
 	1, // 2: IngestService.CreateIngest:input_type -> CreateIngestRequest
@@ -308,13 +307,13 @@ var file_ingest_ingest_proto_depIdxs = []int32{
 	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_ingest_ingest_proto_init() }
-func file_ingest_ingest_proto_init() {
-	if File_ingest_ingest_proto != nil {
+func init() { file_ingest_proto_init() }
+func file_ingest_proto_init() {
+	if File_ingest_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_ingest_ingest_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_ingest_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Ingest); i {
 			case 0:
 				return &v.state
@@ -326,7 +325,7 @@ func file_ingest_ingest_proto_init() {
 				return nil
 			}
 		}
-		file_ingest_ingest_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_ingest_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateIngestRequest); i {
 			case 0:
 				return &v.state
@@ -338,7 +337,7 @@ func file_ingest_ingest_proto_init() {
 				return nil
 			}
 		}
-		file_ingest_ingest_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_ingest_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetIngestRequest); i {
 			case 0:
 				return &v.state
@@ -355,18 +354,18 @@ func file_ingest_ingest_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_ingest_ingest_proto_rawDesc,
+			RawDescriptor: file_ingest_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_ingest_ingest_proto_goTypes,
-		DependencyIndexes: file_ingest_ingest_proto_depIdxs,
-		MessageInfos:      file_ingest_ingest_proto_msgTypes,
+		GoTypes:           file_ingest_proto_goTypes,
+		DependencyIndexes: file_ingest_proto_depIdxs,
+		MessageInfos:      file_ingest_proto_msgTypes,
 	}.Build()
-	File_ingest_ingest_proto = out.File
-	file_ingest_ingest_proto_rawDesc = nil
-	file_ingest_ingest_proto_goTypes = nil
-	file_ingest_ingest_proto_depIdxs = nil
+	File_ingest_proto = out.File
+	file_ingest_proto_rawDesc = nil
+	file_ingest_proto_goTypes = nil
+	file_ingest_proto_depIdxs = nil
 }

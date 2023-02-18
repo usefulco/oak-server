@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/usefulco/oak-server/api/pblive";
+option go_package = "github.com/usefulco/oak-server/internal/live";
 
 service LiveService {
     rpc CreateLive (CreateLiveRequest) returns (Live);

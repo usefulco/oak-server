@@ -6,13 +6,13 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
-	pbIngest "github.com/usefulco/oak-server/api/ingest"
 	"github.com/usefulco/oak-server/internal/ingest"
 	"google.golang.org/grpc"
 )
 
 // TODO:
 // - move aws session creation to better place
+// - create register provider ... provider.Register(config) // registers AWS Provider
 
 func main() {
 	awsSession := session.Must(session.NewSession(&aws.Config{
@@ -27,7 +27,7 @@ func main() {
 	server := grpc.NewServer()
 
 	grpcIngestServer := ingest.NewServer(awsSession)
-	pbIngest.RegisterIngestServiceServer(server, grpcIngestServer)
+	ingest.RegisterIngestServiceServer(server, grpcIngestServer)
 
 	log.Printf("server listening")
 

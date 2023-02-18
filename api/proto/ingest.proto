@@ -1,11 +1,8 @@
 syntax = "proto3";
 
-// TODO:
-// - rename this package to something like pbingest...
+option go_package = "github.com/usefulco/oak-server/internal/ingest";
 
-option go_package = "github.com/usefulco/oak-server/api/ingest";
-
-import "provider/provider.proto";
+import "provider.proto";
 
 service IngestService {
     rpc CreateIngest (CreateIngestRequest) returns (Ingest);

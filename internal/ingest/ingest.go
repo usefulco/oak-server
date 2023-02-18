@@ -1,12 +1,12 @@
 package ingest
 
-type ProviderCreateInput struct {
+type IngestCreateInput struct {
 	Name              string
 	SourceName        string
 	PermittedSourceIP string
 }
 
-type ProviderCreateOutput struct {
+type IngestCreateOutput struct {
 	ProviderName      string
 	ProviderReference string
 	Location          string
@@ -18,5 +18,5 @@ type ProviderCreateOutput struct {
 }
 
 type Provider interface {
-	Create(*ProviderCreateInput) (*ProviderCreateOutput, error)
+	Create(*IngestCreateInput) (*IngestCreateOutput, error)
 }

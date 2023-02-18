@@ -6,8 +6,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/davecgh/go-spew/spew"
-	pbIngest "github.com/usefulco/oak-server/api/ingest"
-	pbprovider "github.com/usefulco/oak-server/api/provider"
+	"github.com/usefulco/oak-server/internal/provider"
 )
 
 // TODO:
@@ -16,12 +15,12 @@ import (
 // - add proper response type
 
 type IngestServer struct {
-	pbIngest.UnimplementedIngestServiceServer
-	providers map[pbprovider.Provider]Provider
+	UnimplementedIngestServiceServer
+	providers map[provider.Provider]Provider
 }
 
-func (s *IngestServer) CreateIngest(ctx context.Context, r *pbIngest.CreateIngestRequest) (*pbIngest.Ingest, error) {
-	result, err := s.providers[r.Provider].Create(&ProviderCreateInput{
+func (s *IngestServer) CreateIngest(ctx context.Context, r *CreateIngestRequest) (*Ingest, error) {
+	result, err := s.providers[r.Provider].Create(&IngestCreateInput{
 		Name:              r.Name,
 		SourceName:        r.SourceName,
 		PermittedSourceIP: r.SourceIpAddr,
@@ -32,16 +31,16 @@ func (s *IngestServer) CreateIngest(ctx context.Context, r *pbIngest.CreateInges
 
 	spew.Dump(result)
 
-	return &pbIngest.Ingest{
+	return &Ingest{
 		Id:   "1234",
 		Name: "Sample",
 	}, nil
 }
 
-func NewServer(awsSession *session.Session) pbIngest.IngestServiceServer {
+func NewServer(awsSession *session.Session) IngestServiceServer {
 	return &IngestServer{
-		providers: map[pbprovider.Provider]Provider{
-			pbprovider.Provider_AWS: NewAwsProvider(awsSession),
+		providers: map[provider.Provider]Provider{
+			provider.Provider_AWS: NewAwsProvider(awsSession),
 		},
 	}
 }

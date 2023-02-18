@@ -21,7 +21,7 @@ func NewAwsProvider(session *session.Session) *awsProvider {
 	}
 }
 
-func (p *awsProvider) Create(i *ProviderCreateInput) (*ProviderCreateOutput, error) {
+func (p *awsProvider) Create(i *IngestCreateInput) (*IngestCreateOutput, error) {
 	options := mediaconnect.CreateFlowInput{
 		Name: &i.Name,
 		Source: &mediaconnect.SetSourceRequest{
@@ -36,7 +36,7 @@ func (p *awsProvider) Create(i *ProviderCreateInput) (*ProviderCreateOutput, err
 		log.Fatalf("failed to create mediaconnect flow: %v", err)
 	}
 
-	r := &ProviderCreateOutput{
+	r := &IngestCreateOutput{
 		ProviderName:      providerName,
 		ProviderReference: *createFlowOutput.Flow.FlowArn,
 		Location:          *createFlowOutput.Flow.AvailabilityZone,

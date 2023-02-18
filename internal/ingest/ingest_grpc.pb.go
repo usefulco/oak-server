@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.12.4
-// source: ingest/ingest.proto
+// source: ingest.proto
 
 package ingest
 
@@ -101,5 +101,5 @@ var IngestService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "ingest/ingest.proto",
+	Metadata: "ingest.proto",
 }
