@@ -7,6 +7,8 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/usefulco/oak-server/internal/ingest"
+	"github.com/usefulco/oak-server/internal/live"
+	"github.com/usefulco/oak-server/internal/provider"
 	"google.golang.org/grpc"
 )
 
@@ -16,7 +18,7 @@ import (
 
 func main() {
 	awsSession := session.Must(session.NewSession(&aws.Config{
-		Region: aws.String("us-east-2"),
+		Region: aws.String("us-east-1"),
 	}))
 
 	listener, err := net.Listen("tcp", ":50051")
@@ -27,7 +29,12 @@ func main() {
 	server := grpc.NewServer()
 
 	grpcIngestServer := ingest.NewServer(awsSession)
+	grpcProviderServer := provider.NewServer(awsSession)
+	grpcLiveServer := live.NewServer(awsSession)
+
 	ingest.RegisterIngestServiceServer(server, grpcIngestServer)
+	provider.RegisterProviderServiceServer(server, grpcProviderServer)
+	live.RegisterLiveServiceServer(server, grpcLiveServer)
 
 	log.Printf("server listening")
 

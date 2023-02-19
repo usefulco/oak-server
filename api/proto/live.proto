@@ -19,6 +19,14 @@ message CreateLiveRequest {
     string type = 2;
     string name = 3;
     string description = 4;
+
+    message AWSConfig {
+        string media_connect_arn = 1;
+        string iam_role_arn = 2;
+    }
+
+    AWSConfig aws_config = 5;
+
 }
 
 message GetLiveRequest {
