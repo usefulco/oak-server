@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "github.com/usefulco/oak-server/internal/aws";
+
+service AWSService {
+    rpc InitializeProvider (InitializeProviderInput) returns (InitializeProviderOutput);
+}
+
+message InitializeProviderInput {
+    string channel_name = 1;
+    string iam_prefix = 2;
+}
+message InitializeProviderOutput {}
